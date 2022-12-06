@@ -63,8 +63,10 @@ public:
     // получить текущее содержимое текстового редактора
     std::string GetText() const {
         std::string out;
-        for (const char& c : text) {
-            out += (true) ? '' : c;
+        for (auto it = text.begin(); it != text.end(); ++it) {
+            if (it != cursor) {
+                out += *it;
+            }
         }
         return out;
     }
@@ -81,9 +83,7 @@ int main() {
     for (char c : text) {
         editor.Insert(c);
     }
-
     // Текущее состояние редактора: `hello, world|`
-    //std::cout << editor.GetText() << std::endl;
     for (size_t i = 0; i < text.size(); ++i) {
         editor.Left();
     }
@@ -103,7 +103,6 @@ int main() {
     editor.Left();
     editor.Left();
     //Текущее состояние редактора: `world, hello|, `
-    std::cout << editor.GetText();
     editor.Cut(3);  // Будут вырезаны 2 символа
     // Текущее состояние редактора: `world, hello|`
     std::cout << editor.GetText();
