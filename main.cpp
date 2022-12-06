@@ -18,9 +18,12 @@ public:
 
     // сдвинуть курсор вправо 
     void Right() {
-        if (cursor != text.end()) {
+        auto next_curr = cursor;
+        ++next_curr;
+        if (next_curr != text.end()) {
             std::list<char>::iterator curr_cursor = cursor++;
             std::swap(*cursor, *curr_cursor);
+            ++next_curr;
         }
     }
 
